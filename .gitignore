@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+.venv/
+
+# Secrets
+.env
+
+# Data and outputs (too large, or regenerated)
+data/raw/
+data/processed/
+*.pcap
+*.pcapng
+logs/*.jsonl

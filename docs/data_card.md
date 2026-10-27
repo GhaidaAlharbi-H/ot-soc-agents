@@ -74,3 +74,9 @@
 - compromised-scada attacks all come from the real HMI IP (.3).
 - Brute-force coil writes trigger exception code 3 (illegal data value); recon triggers code 2 (illegal address).
 - Packets with more than one Modbus message include normal TCP merging, so they are not all stacked-frames attacks.
+
+## Testbed diagram (docs/dataset_setup.png)
+- Three planes: Modbus (control traffic), ACL (trust IEDs send trust scores to the Central Agent), ELK (logs to an ELK stack).
+- Shows 5 IEDs (4 trust, 1 normal), a Trust SCADA and a normal SCADA. Captures and README show only 3 IEDs: open question.
+- No ELK traffic appears in the captures analyzed; likely a separate network not recorded.
+- Only the normal SCADA (.3) is active in the captured periods; the Trust SCADA (.2) never appears.

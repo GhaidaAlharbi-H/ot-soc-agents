@@ -80,3 +80,11 @@
 - Shows 5 IEDs (4 trust, 1 normal), a Trust SCADA and a normal SCADA. Captures and README show only 3 IEDs: open question.
 - No ELK traffic appears in the captures analyzed; likely a separate network not recorded.
 - Only the normal SCADA (.3) is active in the captured periods; the Trust SCADA (.2) never appears.
+
+## Attack logs across scenarios (L1, phase 1.3)
+- 9 attack types (README list); compromised-scada and external share one log format and set of attacks; compromised-ied adds false data injection, delay response and baseline replay.
+- compromised-ied: every attack targets 185.175.0.2 (Trust SCADA HMI), from the compromised IED1B: server-side attacks on responses.
+- Log formats differ: external has only Timestamp and Attack (no TargetIP); compromised-ied uses "Starting ..." and ".. Complete" markers. The L7 parser must handle all three.
+- external is thin: almost all records are on 1 Feb 2023 (131k rows, mostly brute force); other days have 1-10 rows.
+- Packet fingerprints (15 Mar): payload injection = valid frame + 5 extra bytes; length manipulation = header length 27 vs 12 bytes sent; frame stacking = 5 requests in one 60-byte packet.
+- Attack-to-ATT&CK v20.0 mapping: mcp_servers/attack_map.csv

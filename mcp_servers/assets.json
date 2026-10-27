@@ -1,0 +1,89 @@
+{
+  "185.175.0.3": {
+    "role": "scada_hmi",
+    "observed": {
+      "name": "Normal SCADA HMI",
+      "source": "dataset README",
+      "modbus_role": "client",
+      "polls": ["185.175.0.4", "185.175.0.5", "185.175.0.8"],
+      "poll_interval_s": 5.09,
+      "normal_writes": "occasional FC5/FC6 to the same addresses it polls"
+    },
+    "assumed": {
+      "function": "operators' only view and control path for the substation",
+      "criticality": "critical",
+      "forbidden_actions": ["isolate_host", "block_ip"],
+      "allowed_actions": ["monitor", "preserve_evidence", "escalate_engineer"]
+    }
+  },
+  "185.175.0.2": {
+    "role": "scada_hmi",
+    "observed": {
+      "name": "Secure SCADA HMI",
+      "source": "dataset README",
+      "note": "not present in the benign or compromised-scada captures analyzed"
+    },
+    "assumed": {"criticality": "critical"}
+  },
+  "185.175.0.4": {
+    "role": "ied",
+    "observed": {
+      "name": "IED1A",
+      "type": "secure",
+      "source": "dataset README",
+      "modbus_role": "server",
+      "register_map": {"coils": [13, 14], "discrete_inputs": [8], "holding_registers": [8], "input_registers": [8]},
+      "agent_link": "185.175.0.6 on TCP 1099"
+    },
+    "assumed": {
+      "function": "protection relay; coils 13/14 = breaker commands",
+      "criticality": "high",
+      "forbidden_actions": ["isolate_host"],
+      "allowed_actions": ["monitor", "preserve_evidence", "verify_setpoint", "local_control", "escalate_engineer"]
+    }
+  },
+  "185.175.0.8": {
+    "role": "ied",
+    "observed": {
+      "name": "IED4C",
+      "type": "secure",
+      "source": "dataset README",
+      "modbus_role": "server",
+      "register_map": {"coils": [13, 14], "discrete_inputs": [8], "holding_registers": [8], "input_registers": [8]},
+      "agent_link": "185.175.0.6 on TCP 1099"
+    },
+    "assumed": {
+      "function": "protection relay; coils 13/14 = breaker commands",
+      "criticality": "high",
+      "forbidden_actions": ["isolate_host"],
+      "allowed_actions": ["monitor", "preserve_evidence", "verify_setpoint", "local_control", "escalate_engineer"]
+    }
+  },
+  "185.175.0.5": {
+    "role": "ied",
+    "observed": {
+      "name": "IED1B",
+      "type": "normal (no defense agent)",
+      "source": "dataset README",
+      "modbus_role": "server",
+      "register_map": {"coils": [15, 25], "discrete_inputs": [5], "holding_registers": [35], "input_registers": [5]},
+      "agent_link": "none",
+      "note": "the attacker in the compromised-ied scenario"
+    },
+    "assumed": {
+      "function": "protection relay; coils 15/25 = breaker commands",
+      "criticality": "high",
+      "forbidden_actions": ["isolate_host"],
+      "allowed_actions": ["monitor", "preserve_evidence", "verify_setpoint", "local_control", "escalate_engineer"]
+    }
+  },
+  "185.175.0.6": {
+    "role": "central_agent",
+    "observed": {"name": "Central Agent", "source": "dataset README", "links": ["185.175.0.4", "185.175.0.8"], "port": 1099},
+    "assumed": {"function": "authors' defense system, not a normal substation device", "criticality": "medium"}
+  },
+  "185.175.0.7": {
+    "role": "attacker",
+    "observed": {"name": "Attacker", "source": "dataset README", "note": "external scenario only; not in the captures analyzed"}
+  }
+}

@@ -21,7 +21,7 @@
     "observed": {
       "name": "Secure SCADA HMI",
       "source": "dataset README",
-      "note": "not present in the benign or compromised-scada captures analyzed"
+      "note": "absent from benign and compromised-scada captures; target of every compromised-ied attack (from IED1B)"
     },
     "assumed": {"criticality": "critical"}
   },

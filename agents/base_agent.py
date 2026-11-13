@@ -1,3 +1,6 @@
+import openai
+from pydantic import ValidationError
+from core.llm import chat_structured
 import json
 from dataclasses import dataclass
 from core.llm import chat
@@ -65,3 +68,16 @@ def run_agent(system_prompt, user_content, tool_schemas, tools_map, max_steps=8)
 
     log_event("agent_stopped", reason="max_steps", steps=max_steps)
     return AgentRun("", messages, max_steps, "max_steps")
+
+def finalize(run, schema, instruction, retries=1):
+    """After the tool loop, force the conclusion into `schema`. Retry once if invalid."""
+    msgs = run.messages + [{"role": "user", "content": instruction}]
+    for attempt in range(retries + 1):
+        try:
+            return chat_structured(msgs, schema)
+        except (ValidationError, openai.BadRequestError) as e:
+            log_event("structured_failed", attempt=attempt, error=str(e)[:300])
+            msgs = msgs + [{"role": "user", "content":
+                            f"Your last output was invalid: {str(e)[:300]}. "
+                            "Return valid JSON matching the schema."}]
+    raise RuntimeError(f"No valid {schema.__name__} after {retries + 1} attempts")

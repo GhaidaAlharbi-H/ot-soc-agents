@@ -1,9 +1,8 @@
-import openai
-from pydantic import ValidationError
-from core.llm import chat_structured
 import json
 from dataclasses import dataclass
-from core.llm import chat
+import openai
+from pydantic import ValidationError
+from core.llm import chat, chat_structured
 from core.tracing import log_event
 
 MAX_TOOL_RESULT_CHARS = 4000
@@ -37,12 +36,16 @@ def _run_tool(name, raw_args, tools_map):
         result = result[:MAX_TOOL_RESULT_CHARS] + " ...[truncated]"
     return result, True
 
-def run_agent(system_prompt, user_content, tool_schemas, tools_map, max_steps=8):
-    """LLM + tools + loop. Stops when the model answers or max_steps is reached."""
-    messages = [
-        {"role": "system", "content": system_prompt},
-        {"role": "user", "content": user_content},
-    ]
+def run_agent(system_prompt, user_content, tool_schemas, tools_map, max_steps=8, messages=None):
+    """LLM + tools + loop. Pass `messages` to continue an earlier conversation."""
+    if messages is None:
+        messages = [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_content},
+        ]
+    else:
+        messages = list(messages)  # copy, so the caller's list is not changed
+
     for step in range(1, max_steps + 1):
         msg = chat(messages, tools=tool_schemas)
 

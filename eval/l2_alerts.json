@@ -1,0 +1,42 @@
+[
+  {
+    "id": "A1-recon",
+    "text": "Alert: 16 Modbus read requests from 185.175.0.3 to 185.175.0.4 within 2 seconds, starting at address 1 with quantity 2000 (FC1, FC2) and 125 (FC3, FC4). 4 replies were exception code 2 (illegal data address).",
+    "expected_verdict": "real_attack",
+    "expected_source_ips": ["185.175.0.3"],
+    "expected_target_ips": ["185.175.0.4"],
+    "basis": "L1 recon fingerprint: protocol-maximum reads from address 1; T0861"
+  },
+  {
+    "id": "A2-length",
+    "text": "Alert: 4 Modbus read requests from 185.175.0.3 to 185.175.0.5 where the MBAP header length field says 27 bytes follow but only 12 bytes are in the packet.",
+    "expected_verdict": "real_attack",
+    "expected_source_ips": ["185.175.0.3"],
+    "expected_target_ips": ["185.175.0.5"],
+    "basis": "L1 length-manipulation fingerprint; T0814"
+  },
+  {
+    "id": "A3-external",
+    "text": "Alert: 3 Modbus FC5 (write single coil) requests from 185.175.0.7 to 185.175.0.8, coil address 0, within 1 minute.",
+    "expected_verdict": "real_attack",
+    "expected_source_ips": ["185.175.0.7"],
+    "expected_target_ips": ["185.175.0.8"],
+    "basis": "External attacker writing to an IED; no normal traffic between these devices; T0806"
+  },
+  {
+    "id": "A4-flood",
+    "text": "Alert: 2,512 Modbus read requests from 185.175.0.3 to 185.175.0.8 within 1 second, many packets carrying up to 13 requests each, address 1, quantity 20.",
+    "expected_verdict": "real_attack",
+    "expected_source_ips": ["185.175.0.3"],
+    "expected_target_ips": ["185.175.0.8"],
+    "basis": "L1 query-flooding fingerprint; T0814"
+  },
+  {
+    "id": "A5-normal",
+    "text": "Alert: 2 Modbus FC6 (write single register) requests from 185.175.0.3 to 185.175.0.5 to register 35 in the last hour. No exception replies.",
+    "expected_verdict": "false_positive",
+    "expected_source_ips": ["185.175.0.3"],
+    "expected_target_ips": ["185.175.0.5"],
+    "basis": "Matches baseline: ~2.6 FC6 writes/h to register 35"
+  }
+]

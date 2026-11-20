@@ -1,0 +1,162 @@
+[
+  {
+    "id": "A1-recon",
+    "run": 1,
+    "verdict": "real_attack",
+    "severity": "high",
+    "source_ips": [
+      "185.175.0.3"
+    ],
+    "target_ips": [
+      "185.175.0.4"
+    ],
+    "verdict_ok": true,
+    "ips_ok": true,
+    "lookup_corrected": true,
+    "reason": "Alert shows an abnormal burst of large\u2011quantity reads to a high\u2011criticality IED, far exceeding normal polling patterns and generating illegal\u2011address exceptions, indicating a scanning/DoS attempt."
+  },
+  {
+    "id": "A1-recon",
+    "run": 2,
+    "verdict": "real_attack",
+    "severity": "high",
+    "source_ips": [
+      "185.175.0.3"
+    ],
+    "target_ips": [
+      "185.175.0.4"
+    ],
+    "verdict_ok": true,
+    "ips_ok": true,
+    "lookup_corrected": true,
+    "reason": "The traffic is far outside normal baseline: large read quantities, illegal addresses, and exception replies. The target is a high\u2011criticality protection relay, making this a real attack with high severity."
+  },
+  {
+    "id": "A2-length",
+    "run": 1,
+    "verdict": "false_positive",
+    "severity": "low",
+    "source_ips": [
+      "185.175.0.3"
+    ],
+    "target_ips": [
+      "185.175.0.5"
+    ],
+    "verdict_ok": false,
+    "ips_ok": true,
+    "lookup_corrected": true,
+    "reason": "The packet is truncated and does not match the expected 13\u2011byte Modbus read request. No abnormal writes, exception replies, or multi\u2011message packets are present, and the read addresses align with baseline behavior. This indicates a likely false positive caused by packet loss or fragmentation rather than an attack."
+  },
+  {
+    "id": "A2-length",
+    "run": 2,
+    "verdict": "real_attack",
+    "severity": "high",
+    "source_ips": [
+      "185.175.0.3"
+    ],
+    "target_ips": [
+      "185.175.0.5"
+    ],
+    "verdict_ok": true,
+    "ips_ok": true,
+    "lookup_corrected": true,
+    "reason": "The packet\u2019s length field is inconsistent with the actual payload and with the established baseline for this client\u2011server pair. Both devices are critical, and the anomaly indicates a likely attack rather than benign misconfiguration."
+  },
+  {
+    "id": "A3-external",
+    "run": 1,
+    "verdict": "real_attack",
+    "severity": "high",
+    "source_ips": [
+      "185.175.0.7"
+    ],
+    "target_ips": [
+      "185.175.0.8"
+    ],
+    "verdict_ok": true,
+    "ips_ok": true,
+    "lookup_corrected": true,
+    "reason": "Unauthorized Modbus write attempts to a non\u2011existent coil from an attacker device, outside normal communication patterns, targeting a high\u2011criticality IED."
+  },
+  {
+    "id": "A3-external",
+    "run": 2,
+    "verdict": "real_attack",
+    "severity": "high",
+    "source_ips": [
+      "185.175.0.7"
+    ],
+    "target_ips": [
+      "185.175.0.8"
+    ],
+    "verdict_ok": true,
+    "ips_ok": true,
+    "lookup_corrected": true,
+    "reason": "The traffic originates from an attacker to a high\u2011criticality protection relay, targets an invalid coil address, and such communication is absent from the normal baseline. This indicates a real attack with high severity."
+  },
+  {
+    "id": "A4-flood",
+    "run": 1,
+    "verdict": "real_attack",
+    "severity": "high",
+    "source_ips": [
+      "185.175.0.3"
+    ],
+    "target_ips": [
+      "185.175.0.8"
+    ],
+    "verdict_ok": true,
+    "ips_ok": true,
+    "lookup_corrected": true,
+    "reason": "The alert shows an abnormal burst of 2,512 read requests in 1 second, with packets containing up to 13 requests each, targeting address 1 with quantity 20. This is far outside the baseline of single\u2011quantity reads to addresses 13, 14, and 8 performed by the SCADA HMI every 5.09 seconds. The target is a high\u2011criticality protection relay, so the activity is likely a malicious DoS or scanning attempt."
+  },
+  {
+    "id": "A4-flood",
+    "run": 2,
+    "verdict": "real_attack",
+    "severity": "high",
+    "source_ips": [
+      "185.175.0.3"
+    ],
+    "target_ips": [
+      "185.175.0.8"
+    ],
+    "verdict_ok": true,
+    "ips_ok": true,
+    "lookup_corrected": true,
+    "reason": "Observed traffic far exceeds normal Modbus baseline, with high request rate, large quantity, multi-request packets, targeting a critical IED; indicates malicious activity."
+  },
+  {
+    "id": "A5-normal",
+    "run": 1,
+    "verdict": "false_positive",
+    "severity": "low",
+    "source_ips": [
+      "185.175.0.3"
+    ],
+    "target_ips": [
+      "185.175.0.5"
+    ],
+    "verdict_ok": true,
+    "ips_ok": true,
+    "lookup_corrected": true,
+    "reason": "The observed Modbus write activity matches the baseline normal behavior for these devices, with no exception replies and writes to the expected register. Therefore the alert is a false positive."
+  },
+  {
+    "id": "A5-normal",
+    "run": 2,
+    "verdict": "false_positive",
+    "severity": "low",
+    "source_ips": [
+      "185.175.0.3"
+    ],
+    "target_ips": [
+      "185.175.0.5"
+    ],
+    "verdict_ok": true,
+    "ips_ok": true,
+    "lookup_corrected": true,
+    "reason": "The traffic matches normal baseline rates and addresses, with no exception replies, indicating routine operation."
+  }
+]

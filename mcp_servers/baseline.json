@@ -3,28 +3,64 @@
   "185.175.0.3->185.175.0.4": {
     "poll_interval_s": 5.09,
     "reads_per_poll": "FC1 coil 13, FC1 coil 14, FC2 input 8, FC3 register 8, FC4 register 8 (quantity 1 each)",
-    "normal_writes_per_hour": {"FC5_write_coil": 4.7, "FC6_write_register": 3.4},
-    "normal_write_addresses": {"FC5": [13, 14], "FC6": [8]},
+    "normal_writes_per_hour": {
+      "FC5_write_coil": 4.7,
+      "FC6_write_register": 3.4
+    },
+    "normal_write_addresses": {
+      "FC5": [
+        13,
+        14
+      ],
+      "FC6": [
+        8
+      ]
+    },
     "max_read_quantity": 1,
     "exception_replies": 0,
-    "multi_message_packets": 0
+    "multi_message_packets": 0,
+    "header_length_mismatches": 0
   },
   "185.175.0.3->185.175.0.5": {
     "poll_interval_s": 5.09,
     "reads_per_poll": "FC1 coil 15, FC1 coil 25, FC2 input 5, FC3 register 35, FC4 register 5 (quantity 1 each)",
-    "normal_writes_per_hour": {"FC5_write_coil": 4.3, "FC6_write_register": 2.6},
-    "normal_write_addresses": {"FC5": [15, 25], "FC6": [35]},
+    "normal_writes_per_hour": {
+      "FC5_write_coil": 4.3,
+      "FC6_write_register": 2.6
+    },
+    "normal_write_addresses": {
+      "FC5": [
+        15,
+        25
+      ],
+      "FC6": [
+        35
+      ]
+    },
     "max_read_quantity": 1,
     "exception_replies": 0,
-    "multi_message_packets": 0
+    "multi_message_packets": 0,
+    "header_length_mismatches": 0
   },
   "185.175.0.3->185.175.0.8": {
     "poll_interval_s": 5.09,
     "reads_per_poll": "FC1 coil 13, FC1 coil 14, FC2 input 8, FC3 register 8, FC4 register 8 (quantity 1 each)",
-    "normal_writes_per_hour": {"FC5_write_coil": 3.9, "FC6_write_register": 3.6},
-    "normal_write_addresses": {"FC5": [13, 14], "FC6": [8]},
+    "normal_writes_per_hour": {
+      "FC5_write_coil": 3.9,
+      "FC6_write_register": 3.6
+    },
+    "normal_write_addresses": {
+      "FC5": [
+        13,
+        14
+      ],
+      "FC6": [
+        8
+      ]
+    },
     "max_read_quantity": 1,
     "exception_replies": 0,
-    "multi_message_packets": 0
+    "multi_message_packets": 0,
+    "header_length_mismatches": 0
   }
 }
